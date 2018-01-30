@@ -5,11 +5,11 @@ namespace NeuralNetwork
 {
     public class NeuralNetwork : IComparable<NeuralNetwork>
     {
-        public int[] Layers;
-        public float[][] Nodes;
-        public float[][][] Weights;
-        public float Fitness { get; set; }
-        
+        public int[] Layers; // e.g. input, hidden, output
+        public float[][] Nodes; // e.g. 2 inputs, n hidden, 2 output
+        public float[][][] Weights; // the bias towards n action
+        public float Fitness { get; set; } //Increased when neural net does something good, decreased when bad
+        // First Constructor
         public NeuralNetwork(int[] layerInfo)
         {
             Layers = new int[layerInfo.Length];
@@ -22,6 +22,7 @@ namespace NeuralNetwork
             CreateNodeMatrix();
             CreateWeightMatrix();
         }
+        // Recursion Constructor for learning
         public NeuralNetwork(NeuralNetwork otherNetwork)
         {
             Layers = new int[otherNetwork.Layers.Length];
@@ -35,7 +36,7 @@ namespace NeuralNetwork
             CreateWeightMatrix();
             WeightCopy(otherNetwork.Weights);
         }
-
+        // Get outputs from inputs
         public float[] FeedForward(float[] inputs)
         {
             for (int i = 0; i < inputs.Length; i++)
@@ -60,7 +61,7 @@ namespace NeuralNetwork
 
             return Nodes[Nodes.Length - 1];
         }
-
+        // Change bias
         public void MutateWeights()
         {
             for (int i = 0; i < Weights.Length; i++)
@@ -98,7 +99,7 @@ namespace NeuralNetwork
                 }
             }
         }
-
+        // Make Nodes
         private void CreateNodeMatrix()
         {
             List<float[]> nodeList = new List<float[]>();
@@ -110,7 +111,7 @@ namespace NeuralNetwork
 
             Nodes = nodeList.ToArray();
         }
-
+        // Make Weights
         private void CreateWeightMatrix()
         {
             List<float[][]> weightList = new List<float[][]>();
@@ -138,7 +139,7 @@ namespace NeuralNetwork
 
             Weights = weightList.ToArray();
         }
-
+        // Used in recursion to keep bias the same
         public void WeightCopy(float[][][] weightCopy)
         {
             for (int i = 0; i < Weights.Length; i++)
@@ -153,12 +154,12 @@ namespace NeuralNetwork
             }
         }
 
-
+        // Change Fitness
         public void AddFitness(float newFitness)
         {
             Fitness += newFitness;
         }
-
+        // Compare two NeuralNetwork's Fitness to eachother
         public int CompareTo(NeuralNetwork other)
         {
             if (other == null)
