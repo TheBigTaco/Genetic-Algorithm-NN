@@ -35,7 +35,7 @@ namespace NeuralNetwork
                 var timeToTarget = Time.time - spawnTime; //How much time it took to hit the target
                 Brain.AddFitness(3); //Add 3 fitness for hitting the target
                 Brain.AddFitness(130 - timeToTarget); //Add extra time to fitness
-                print(Brain.Fitness);
+                print(Brain.Fitness + " ########## " + rigidBody.GetComponent<MeshRenderer>().material.color);
             }
             else
             {

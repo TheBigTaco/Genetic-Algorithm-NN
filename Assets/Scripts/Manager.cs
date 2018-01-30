@@ -116,7 +116,7 @@ namespace NeuralNetwork
                     else
                     {
                         rend.material = Resources.Load("Materials/mustache", typeof(Material)) as Material;
-                        rend.material.color = Color.magenta;
+                        rend.material.color = Color.black;
                     }
                 }
                 agent.Brain.Fitness = 0;
